@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Weather</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <style>
+        body {
+            background-image: url('img2.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <!-- <a class="navbar-brand" href="index.html">Home</a> -->
+            <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
+            <form class="d-flex text-center" role="search">
+                <input id="city" class="form-control me-2" type="search" placeholder="Search City" aria-label="Search">
+                <button class="btn btn btn-outline-dark" type="submit" id="submit">Search</button>
+            </form>
+        </div>
+        <!-- </div> -->
+    </nav>
+    <div class="container mt-5 mb-0">
+        <h1 class=" my-5 text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="4%" height="4%" viewBox="0 2 15 17">
+                <path d="M11.473 11a4.5 4.5 0 0 0-8.72-.99A3 3 0 0 0 3 16h8.5a2.5 2.5 0 0 0 0-5h-.027z" />
+                <path
+                    d="M10.5 1.5a.5.5 0 0 0-1 0v1a.5.5 0 0 0 1 0v-1zm3.743 1.964a.5.5 0 1 0-.707-.707l-.708.707a.5.5 0 0 0 .708.708l.707-.708zm-7.779-.707a.5.5 0 0 0-.707.707l.707.708a.5.5 0 1 0 .708-.708l-.708-.707zm1.734 3.374a2 2 0 1 1 3.296 2.198c.199.281.372.582.516.898a3 3 0 1 0-4.84-3.225c.352.011.696.055 1.028.129zm4.484 4.074c.6.215 1.125.59 1.522 1.072a.5.5 0 0 0 .039-.742l-.707-.707a.5.5 0 0 0-.854.377zM14.5 6.5a.5.5 0 0 0 0 1h1a.5.5 0 0 0 0-1h-1z" />
+            </svg> Weather For <span id="cityName"></span>
+        </h1>
+        <!-- <main> -->
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">Temperature</h4>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="card-title pricing-card-title"><span id="temp"></span><small
+                                class="text-muted fw-light ">°C</small>
+                        </h1>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <!-- <li> Tem is <span id="temp"></span></li> -->
+                            <!-- <li> Min Tem : <span id="min_temp"></span></li>
+                            <li> Max Tem : <span id="max_temp"></span></li> -->
+                        </ul>
+                        <!-- <button type="button" class="w-100 btn btn-lg btn-outline-primary">Sign up for free</button> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3">
+                        <h4 class="my-0 fw-normal">Wind speed</h4>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="card-title pricing-card-title"><span id="wind_speed"></span><small
+                                class="text-muted fw-light"> km/hr</small>
+                        </h1>
+                        <ul class="list-unstyled mt-3 mb-4">
+
+                            <li><span id="cloud_pct"></span></li>
+                            <li> <span id="feels_like"></span></li>
+                            <!-- <li>Priority email support : <span id="humidity"></span></li> -->
+
+                        </ul>
+                        <!-- <button type="button" class="w-100 btn btn-lg btn-primary">Get started</button> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 rounded-3 shadow-sm border">
+                    <div class="card-header py-3 text-bg-gray border">
+                        <h4 class="my-0 fw-normal">Humidity</h4>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="card-title pricing-card-title"><span id="humidity"></span><small
+                                class="text-muted fw-light "> <svg xmlns="http://www.w3.org/2000/svg" width="8%"
+                                    height="8%" fill="currentColor" class="bi bi-moisture" viewBox="0 1 16 15">
+                                    <path
+                                        d="M13.5 0a.5.5 0 0 0 0 1H15v2.75h-.5a.5.5 0 0 0 0 1h.5V7.5h-1.5a.5.5 0 0 0 0 1H15v2.75h-.5a.5.5 0 0 0 0 1h.5V15h-1.5a.5.5 0 0 0 0 1h2a.5.5 0 0 0 .5-.5V.5a.5.5 0 0 0-.5-.5h-2zM7 1.5l.364-.343a.5.5 0 0 0-.728 0l-.002.002-.006.007-.022.023-.08.088a28.458 28.458 0 0 0-1.274 1.517c-.769.983-1.714 2.325-2.385 3.727C2.368 7.564 2 8.682 2 9.733 2 12.614 4.212 15 7 15s5-2.386 5-5.267c0-1.05-.368-2.169-.867-3.212-.671-1.402-1.616-2.744-2.385-3.727a28.458 28.458 0 0 0-1.354-1.605l-.022-.023-.006-.007-.002-.001L7 1.5zm0 0-.364-.343L7 1.5zm-.016.766L7 2.247l.016.019c.24.274.572.667.944 1.144.611.781 1.32 1.776 1.901 2.827H4.14c.58-1.051 1.29-2.046 1.9-2.827.373-.477.706-.87.945-1.144zM3 9.733c0-.755.244-1.612.638-2.496h6.724c.395.884.638 1.741.638 2.496C11 12.117 9.182 14 7 14s-4-1.883-4-4.267z" />
+                                </svg></small>
+                        </h1>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <!-- <li>wind degrees : <span id="wind_degrees"></span></li> -->
+                            <!-- <li>sunrise : <span id="sunrise"></span></li>
+                            <li>sunset : <span id="sunset"></span></li> -->
+                        </ul>
+                        <!-- <button type="button" class="w-100 btn btn-lg btn-primary">Contact us</button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <h2 class="display-6 text-center mb-4">Compare plans</h2> -->
+
+        <!-- <div class="table-responsive">
+            <table class="table text-center">
+                <thead>
+                    <tr>
+                        <th style="width: 34%;"></th>
+                        <th style="width: 22%;">Free</th>
+                        <th style="width: 22%;">Pro</th>
+                        <th style="width: 22%;">Enterprise</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row" class="text-start">Public</th>
+                        <td><svg class="bi" width="24" height="24">
+                                <use xlink:href="#check"></use>
+                            </svg></td>
+                        <td><svg class="bi" width="24" height="24">
+                                <use xlink:href="#check"></use>
+                            </svg></td>
+                        <td><svg class="bi" width="24" height="24">
+                                <use xlink:href="#check"></use>
+                            </svg></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-start">Private</th>
+                        <td></td>
+                        <td><svg class="bi" width="24" height="24">
+                                <use xlink:href="#check"></use>
+                            </svg></td>
+                        <td><svg class="bi" width="24" height="24">
+                                <use xlink:href="#check"></use>
+                            </svg></td>
+                    </tr>
+                </tbody>
+
+                <tbody>
+                    <tr>
+                        <th scope="row" class="text-start">Permissions</th>
+                        <td><svg class="bi" width="24" height="24">
+                                <use xlink:href="#check"></use>
+                            </svg></td>
+                        <td><svg class="bi" width="24" height="24">
+                                <use xlink:href="#check"></use>
+                            </svg></td>
+                        <td><svg class="bi" width="24" height="24">
+                                <use xlink:href="#check"></use>
+                            </svg></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-start">Sharing</th>
+                        <td></td>
+                        <td><svg class="bi" width="24" height="24">
+                                <use xlink:href="#check"></use>
+                            </svg></td>
+                        <td><svg class="bi" width="24" height="24">
+                                <use xlink:href="#check"></use>
+                            </svg></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-start">Unlimited members</th>
+                        <td></td>
+                        <td><svg class="bi" width="24" height="24">
+                                <use xlink:href="#check"></use>
+                            </svg></td>
+                        <td><svg class="bi" width="24" height="24">
+                                <use xlink:href="#check"></use>
+                            </svg></td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="text-start">Extra security</th>
+                        <td></td>
+                        <td></td>
+                        <td><svg class="bi" width="24" height="24">
+                                <use xlink:href="#check"></use>
+                            </svg></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div> -->
+        <!-- </main> -->
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
